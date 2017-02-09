@@ -45,13 +45,15 @@ public class MovieDataAdapter extends ArrayAdapter<MovieData> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Gets the MovieData object from the ArrayAdapter at the appropriate position
-        MovieData MovieData = getItem(position);
+        MovieData movieData = getItem(position);
 
         // Adapters recycle views to AdapterViews.
         // If this is a new View object we're getting, then inflate the layout.
         // If not, this view already has the layout inflated from a previous call to getView,
         // and we modify the View widgets as usual.
 
+        ImageView iconView = (ImageView) convertView.findViewById(R.id.flavor_image);
+        iconView.setImageResource(movieData.image);
 
         return convertView;
     }

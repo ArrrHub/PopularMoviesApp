@@ -1,5 +1,6 @@
 package com.example.dat.popularmoviesapp;
 
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +14,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+
+    public class FetchTvData extends AsyncTask<String, Void, String[]>
+    {
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String[] doInBackground(String... params)
+        {
+            String[] result = null;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String[] strings) {
+            super.onPostExecute(strings);
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
