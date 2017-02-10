@@ -17,7 +17,7 @@ import java.util.Arrays;
  */
 public class MainActivityFragment extends Fragment {
 
-    private MovieDataAdapter flavorAdapter;
+    private MovieDataAdapter movieDataAdapter;
 
     MovieData[] MovieDataArray = {
 
@@ -31,11 +31,11 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        flavorAdapter = new MovieDataAdapter(getActivity(), Arrays.asList(MovieDataArray));
+        movieDataAdapter = new MovieDataAdapter(getActivity(), Arrays.asList(MovieDataArray));
 
         // Get a reference to the ListView, and attach this adapter to it.
         GridView gridView = (GridView) rootView.findViewById(R.id.flavors_grid);
-        gridView.setAdapter(flavorAdapter);
+        gridView.setAdapter(movieDataAdapter);
 
         return rootView;
     }

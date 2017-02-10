@@ -1,10 +1,19 @@
 package com.example.dat.popularmoviesapp;
 
 import android.os.AsyncTask;
+import android.os.NetworkOnMainThreadException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.dat.popularmoviesapp.Utilities.JsonUtils;
+import com.example.dat.popularmoviesapp.Utilities.NetworkUtils;
+
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.util.*;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public class FetchTvData extends AsyncTask<String, Void, String[]>
+    public class FetchTvDataTask extends AsyncTask<String, Void, String[]>
     {
         @Override
         protected void onPreExecute(){
@@ -25,13 +34,26 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected String[] doInBackground(String... params)
         {
-            String[] result = null;
+            String[] result = {"a"};
+            try
+            {
+                result[0] = NetworkUtils.getResponse(NetworkUtils.buildUrl(params[0]));
+                JsonUtils.initJsonObject(result[0]);
+                List<String> posterAddresses = JsonUtils.getPopularMoviePostersAddress();
+            }
+            catch (IOException|JSONException e)
+            {
+                e.printStackTrace();
+                return null;
+            }
             return result;
         }
 
         @Override
-        protected void onPostExecute(String[] strings) {
+        protected void onPostExecute(String[] strings)
+        {
             super.onPostExecute(strings);
+
         }
     }
     @Override
@@ -52,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings)
         {
+            String requestType = "popular";
+            new FetchTvDataTask().execute(requestType);
             return true;
         }
 
