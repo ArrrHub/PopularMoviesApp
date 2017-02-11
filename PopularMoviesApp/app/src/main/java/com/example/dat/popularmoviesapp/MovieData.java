@@ -6,9 +6,9 @@ package com.example.dat.popularmoviesapp;
 
 public class MovieData {
 
-    int image; // drawable reference id
+    String imagePath; // drawable reference id
 
-    public MovieData(int image) {
-        this.image = image;
+    public MovieData(String path) {
+        imagePath = path;
     }
 }

@@ -1,5 +1,7 @@
 package com.example.dat.popularmoviesapp;
 
+import android.app.Fragment;
+import android.graphics.Movie;
 import android.os.AsyncTask;
 import android.os.NetworkOnMainThreadException;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     public class FetchTvDataTask extends AsyncTask<String, Void, String[]>
     {
+
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
@@ -34,19 +37,18 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected String[] doInBackground(String... params)
         {
-            String[] result = {"a"};
             try
             {
-                result[0] = NetworkUtils.getResponse(NetworkUtils.buildUrl(params[0]));
-                JsonUtils.initJsonObject(result[0]);
+                String response = NetworkUtils.getResponse(NetworkUtils.buildUrl(params[0]));
+                JsonUtils.initJsonObject(response);
                 List<String> posterAddresses = JsonUtils.getPopularMoviePostersAddress();
+                return (String [])posterAddresses.toArray(new String[posterAddresses.size()]);
             }
             catch (IOException|JSONException e)
             {
                 e.printStackTrace();
                 return null;
             }
-            return result;
         }
 
         @Override
@@ -54,6 +56,23 @@ public class MainActivity extends AppCompatActivity {
         {
             super.onPostExecute(strings);
 
+            List<MovieData> movieDataInfo = new ArrayList<MovieData>();
+            MainActivityFragment mainActivityFragment = (MainActivityFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
+            MovieDataAdapter adapter= mainActivityFragment.getMovieDataAdapter();
+
+            adapter.clear();
+
+            for(String s: strings)
+            {
+                s = "http://image.tmdb.org/t/p/w185/" + s;
+                //movieDataInfo.add(new MovieData(s));
+
+                adapter.add(new MovieData(s));
+            }
+
+            //mainActivityFragment.setMovieDataArray((MovieData[]) movieDataInfo.toArray(new MovieData[movieDataInfo.size()]));
+
+            mainActivityFragment.getMovieDataAdapter().notifyDataSetChanged();
         }
     }
     @Override

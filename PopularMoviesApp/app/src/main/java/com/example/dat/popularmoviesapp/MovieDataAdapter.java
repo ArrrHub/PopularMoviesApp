@@ -12,11 +12,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieDataAdapter extends ArrayAdapter<MovieData> {
     private static final String LOG_TAG = MovieDataAdapter.class.getSimpleName();
-
+    private Activity contextHolder;
     /**
      * This is our own custom constructor (it doesn't mirror a superclass constructor).
      * The context is used to inflate the layout file, and the List is the data we want
@@ -25,12 +28,13 @@ public class MovieDataAdapter extends ArrayAdapter<MovieData> {
      * @param context        The current context. Used to inflate the layout file.
      * @param MovieDataList A List of MovieData objects to display in a list
      */
-    public MovieDataAdapter(Activity context, List<MovieData> MovieDataList) {
+    public MovieDataAdapter(Activity context, ArrayList<MovieData> MovieDataList) {
         // Here, we initialize the ArrayAdapter's internal storage for the context and the list.
         // the second argument is used when the ArrayAdapter is populating a single TextView.
         // Because this is a custom adapter for two TextViews and an ImageView, the adapter is not
         // going to use this second argument, so it can be any value. Here, we used 0.
         super(context, 0, MovieDataList);
+        contextHolder = context;
     }
 
     /**
@@ -51,9 +55,17 @@ public class MovieDataAdapter extends ArrayAdapter<MovieData> {
         // If this is a new View object we're getting, then inflate the layout.
         // If not, this view already has the layout inflated from a previous call to getView,
         // and we modify the View widgets as usual.
+        if(convertView==null)
+        {
+            convertView = ((LayoutInflater) contextHolder.getSystemService(contextHolder.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.movie_item, null);
+        }
 
-        ImageView iconView = (ImageView) convertView.findViewById(R.id.flavor_image);
-        iconView.setImageResource(movieData.image);
+        ImageView iconView = (ImageView) convertView.findViewById(R.id.movie_image);
+
+        if(!movieData.imagePath.isEmpty() && (iconView!=null))
+            Picasso.with(contextHolder).load(movieData.imagePath).into(iconView);
+
+
 
         return convertView;
     }
