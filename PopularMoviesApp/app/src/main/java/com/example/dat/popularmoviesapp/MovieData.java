@@ -8,6 +8,7 @@ public class MovieData {
 
     String imagePath; // drawable reference id
 
+
     public MovieData(String path) {
         imagePath = path;
     }
