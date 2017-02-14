@@ -2,6 +2,7 @@ package com.example.dat.popularmoviesapp;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,9 +15,15 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.example.dat.popularmoviesapp.MovieDataAdapter;
+import com.example.dat.popularmoviesapp.Utilities.JsonUtils;
+import com.example.dat.popularmoviesapp.Utilities.NetworkUtils;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * A fragment containing the list view of Android versions.
@@ -25,17 +32,18 @@ public class MainActivityFragment extends Fragment {
 
     private MovieDataAdapter movieDataAdapter;
 
-    public MovieData[] MovieDataArray = {
-       new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg"),
-            new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg"),
-            new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg"),
-            new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg"),
-            new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg"),
-            new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg"),
-            new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg"),
-            new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg"),
-            new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg"),
-            new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg")
+    public MovieData[] MovieDataArray =
+    {
+        new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
+        new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
+        new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
+        new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
+        new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
+        new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
+        new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
+        new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
+        new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
+        new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d")
     };
 
     public MainActivityFragment() {
@@ -86,11 +94,12 @@ public class MainActivityFragment extends Fragment {
                 detailActivityIntent.putExtra(Intent.EXTRA_TEXT, movieData.imagePath);
 
                 startActivity(detailActivityIntent);
-                //Toast.makeText(getActivity(), movieData.imagePath , Toast.LENGTH_SHORT).show();
+
             }
         });
         gridView.setAdapter(movieDataAdapter);
 
         return rootView;
     }
+
 }

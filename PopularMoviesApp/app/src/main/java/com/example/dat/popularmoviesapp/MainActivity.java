@@ -12,7 +12,9 @@ import android.view.MenuItem;
 import com.example.dat.popularmoviesapp.Utilities.JsonUtils;
 import com.example.dat.popularmoviesapp.Utilities.NetworkUtils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.*;
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public class FetchTvDataTask extends AsyncTask<String, Void, String[]>
+    public class FetchTvDataTask extends AsyncTask<String, Void, JSONArray>
     {
 
         @Override
@@ -35,14 +37,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected String[] doInBackground(String... params)
+        protected JSONArray doInBackground(String... params)
         {
             try
             {
                 String response = NetworkUtils.getResponse(NetworkUtils.buildUrl(params[0]));
                 JsonUtils.initJsonObject(response);
-                List<String> posterAddresses = JsonUtils.getPopularMoviePostersAddress();
-                return (String [])posterAddresses.toArray(new String[posterAddresses.size()]);
+                //List<String> posterAddresses = JsonUtils.getPopularMoviePostersAddress();
+                //List<String> movieData = JsonUtils.getPopularMovieList();
+
+                return JsonUtils.getPopularMovieArray();
+                //return (String [])movieData.toArray(new String[movieData.size()]);
             }
             catch (IOException|JSONException e)
             {
@@ -52,27 +57,34 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String[] strings)
+        protected void onPostExecute(JSONArray movieArray)
         {
-            super.onPostExecute(strings);
+            super.onPostExecute(movieArray);
 
-            List<MovieData> movieDataInfo = new ArrayList<MovieData>();
             MainActivityFragment mainActivityFragment = (MainActivityFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
             MovieDataAdapter adapter= mainActivityFragment.getMovieDataAdapter();
 
             adapter.clear();
 
-            for(String s: strings)
+            try
             {
-                s = "http://image.tmdb.org/t/p/w185/" + s;
-                //movieDataInfo.add(new MovieData(s));
+                for(int i =0; i< movieArray.length(); i++)
+                {
+                    JSONObject jsonMovieData = movieArray.getJSONObject(i);
+                    String imagePath = "http://image.tmdb.org/t/p/w185/" + jsonMovieData.get("poster_path");
 
-                adapter.add(new MovieData(s));
+                    MovieData movieData = new MovieData(imagePath, jsonMovieData.getString("title"), jsonMovieData.getString("release_date"),
+                            jsonMovieData.getString("vote_average"), jsonMovieData.getString("overview"));
+                    adapter.add(movieData);
+                }
+
+                mainActivityFragment.getMovieDataAdapter().notifyDataSetChanged();
+            }
+            catch (JSONException e)
+            {
+                e.printStackTrace();
             }
 
-            //mainActivityFragment.setMovieDataArray((MovieData[]) movieDataInfo.toArray(new MovieData[movieDataInfo.size()]));
-
-            mainActivityFragment.getMovieDataAdapter().notifyDataSetChanged();
         }
     }
     @Override
