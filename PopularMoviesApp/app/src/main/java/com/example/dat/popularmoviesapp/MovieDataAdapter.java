@@ -38,6 +38,9 @@ public class MovieDataAdapter extends ArrayAdapter<MovieData> {
 
         ImageView iconView = (ImageView) convertView.findViewById(R.id.movie_image);
 
+
+
+
         if(!movieData.imagePath.isEmpty() && (iconView!=null))
             Picasso.with(contextHolder).load(movieData.imagePath).into(iconView);
 

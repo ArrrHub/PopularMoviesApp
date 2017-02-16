@@ -22,8 +22,10 @@ import java.util.*;
 public class MainActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
+        new FetchTvDataTask().execute("popular");
         setContentView(R.layout.activity_main);
     }
 
@@ -72,9 +74,11 @@ public class MainActivity extends AppCompatActivity {
                 {
                     JSONObject jsonMovieData = movieArray.getJSONObject(i);
                     String imagePath = "http://image.tmdb.org/t/p/w185/" + jsonMovieData.get("poster_path");
+                    String largeImagePath = "http://image.tmdb.org/t/p/w500/" + jsonMovieData.get("poster_path");
 
-                    MovieData movieData = new MovieData(imagePath, jsonMovieData.getString("title"), jsonMovieData.getString("release_date"),
+                    MovieData movieData = new MovieData(imagePath, largeImagePath, jsonMovieData.getString("title"), jsonMovieData.getString("release_date"),
                             jsonMovieData.getString("vote_average"), jsonMovieData.getString("overview"));
+
                     adapter.add(movieData);
                 }
 
@@ -103,12 +107,19 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings)
+        String requestType = new String();
+
+        if (id == R.id.menuItemPopular)
         {
-            String requestType = "popular";
-            new FetchTvDataTask().execute(requestType);
-            return true;
+            requestType = "popular";
+
         }
+        else if (id == R.id.menuItemTop_Rated)
+        {
+            requestType = "top_rated";
+
+        }
+        new FetchTvDataTask().execute(requestType);
 
         return super.onOptionsItemSelected(item);
     }

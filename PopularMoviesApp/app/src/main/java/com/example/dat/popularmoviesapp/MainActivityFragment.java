@@ -34,16 +34,16 @@ public class MainActivityFragment extends Fragment {
 
     public MovieData[] MovieDataArray =
     {
-        new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
-        new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
-        new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
-        new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
-        new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
-        new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
-        new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
-        new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
-        new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
-        new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d")
+        new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "http://image.tmdb.org/t/p/w500//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
+            new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "http://image.tmdb.org/t/p/w500//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
+            new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "http://image.tmdb.org/t/p/w500//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
+            new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "http://image.tmdb.org/t/p/w500//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
+            new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "http://image.tmdb.org/t/p/w500//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
+            new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "http://image.tmdb.org/t/p/w500//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
+            new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "http://image.tmdb.org/t/p/w500//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
+            new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "http://image.tmdb.org/t/p/w500//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
+            new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "http://image.tmdb.org/t/p/w500//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
+            new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "http://image.tmdb.org/t/p/w500//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d")
     };
 
     public MainActivityFragment() {
@@ -91,7 +91,14 @@ public class MainActivityFragment extends Fragment {
                 Class destinationActivity = DetailsScreen.class;
                 Intent detailActivityIntent = new Intent(getActivity(), destinationActivity);
 
-                detailActivityIntent.putExtra(Intent.EXTRA_TEXT, movieData.imagePath);
+                String[] combinedMovieDetails = new String[5];
+                combinedMovieDetails[0] = movieData.largeImagePath;
+                combinedMovieDetails[1] = movieData.Title;
+                combinedMovieDetails[2] = "Release date: " + movieData.ReleaseDate;
+                combinedMovieDetails[3] = "Score Average: " + movieData.VoteAverage;
+                combinedMovieDetails[4] = movieData.Synopsis;
+
+                detailActivityIntent.putExtra(Intent.EXTRA_TEXT, combinedMovieDetails);
 
                 startActivity(detailActivityIntent);
 
