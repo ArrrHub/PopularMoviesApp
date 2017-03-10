@@ -1,5 +1,9 @@
 package com.example.dat.popularmoviesapp.Utilities;
 
+import android.content.res.Resources;
+
+import com.example.dat.popularmoviesapp.R;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,11 +30,11 @@ public final class JsonUtils {
         List<String> addresses = new ArrayList<String>();
         if(JSONobj!=null)
         {
-            JSONArray arr = JSONobj.getJSONArray("results");
+            JSONArray arr = JSONobj.getJSONArray(Resources.getSystem().getString(R.string.jsonQueryResults));
             for (int i = 0; i < arr.length(); i++)
             {
                 JSONObject jsonMovieData = arr.getJSONObject(i);
-                addresses.add(jsonMovieData.getString("poster_path"));
+                addresses.add(jsonMovieData.getString(Resources.getSystem().getString(R.string.jsonQueryPosterPath)));
             }
 
         }
@@ -42,7 +46,7 @@ public final class JsonUtils {
         List<String> movies = new ArrayList<String>();
         if(JSONobj!=null)
         {
-            JSONArray arr = JSONobj.getJSONArray("results");
+            JSONArray arr = JSONobj.getJSONArray(Resources.getSystem().getString(R.string.jsonQueryResults));
             for (int i = 0; i < arr.length(); i++)
             {
                 JSONObject jsonMovieData = arr.getJSONObject(i);
@@ -55,7 +59,7 @@ public final class JsonUtils {
 
     public static JSONArray getPopularMovieArray() throws  JSONException
     {
-        return JSONobj.getJSONArray("results");
+        return JSONobj.getJSONArray(Resources.getSystem().getString(R.string.jsonQueryResults));
     }
 
     public static JSONObject getJsonMovieDataByTitle(String title) throws  JSONException
@@ -63,12 +67,12 @@ public final class JsonUtils {
         JSONObject result = null;
         if(JSONobj !=null)
         {
-            JSONArray arr = JSONobj.getJSONArray("results");
+            JSONArray arr = JSONobj.getJSONArray(Resources.getSystem().getString(R.string.jsonQueryResults));
             for (int i = 0; i < arr.length(); i++)
             {
                 JSONObject jsonMovieData = arr.getJSONObject(i);
 
-                if(jsonMovieData.optString ("title") == title)
+                if(jsonMovieData.optString (Resources.getSystem().getString(R.string.jsonQueryTitle)) == title)
                 {
                     result = jsonMovieData;
                 }

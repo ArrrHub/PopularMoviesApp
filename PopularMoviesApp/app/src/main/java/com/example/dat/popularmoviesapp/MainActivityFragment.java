@@ -34,16 +34,12 @@ public class MainActivityFragment extends Fragment {
 
     public MovieData[] MovieDataArray =
     {
-        new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "http://image.tmdb.org/t/p/w500//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
-            new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "http://image.tmdb.org/t/p/w500//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
-            new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "http://image.tmdb.org/t/p/w500//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
-            new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "http://image.tmdb.org/t/p/w500//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
-            new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "http://image.tmdb.org/t/p/w500//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
-            new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "http://image.tmdb.org/t/p/w500//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
-            new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "http://image.tmdb.org/t/p/w500//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
-            new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "http://image.tmdb.org/t/p/w500//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
-            new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "http://image.tmdb.org/t/p/w500//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d"),
-            new MovieData("http://image.tmdb.org/t/p/w185//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "http://image.tmdb.org/t/p/w500//WLQN5aiQG8wc9SeKwixW7pAR8K.jpg", "a", "b", "c", "d")
+        new MovieData("", "", "", "", "", ""),
+        new MovieData("", "", "", "", "", ""),
+        new MovieData("", "", "", "", "", ""),
+        new MovieData("", "", "", "", "", ""),
+        new MovieData("", "", "", "", "", ""),
+        new MovieData("", "", "", "", "", "")
     };
 
     public MainActivityFragment() {

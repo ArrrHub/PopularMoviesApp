@@ -1,7 +1,10 @@
 package com.example.dat.popularmoviesapp.Utilities;
 
+import android.content.res.Resources;
 import android.net.Uri;
 import android.util.Log;
+
+import com.example.dat.popularmoviesapp.R;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,16 +17,13 @@ import java.util.Scanner;
  */
 
 public final class NetworkUtils {
-    //http://api.themoviedb.org/3/movie/popular?api_key
-    public static final String BASE_MOVIEDB_URL = "http://api.themoviedb.org/3/movie/";
-
 
     public static URL buildUrl(String requestType) {
-        String APIkeyV3 = "f39d4c2d598f29ac20b5b38086ed90c1";
-
-        Uri builtUri = Uri.parse(BASE_MOVIEDB_URL).buildUpon()
+        //"http://api.themoviedb.org/3/movie/"
+        Uri builtUri = Uri.parse(Resources.getSystem().getString(R.string.baseMovieDbUrl)).buildUpon()
                 .appendPath(requestType)
-                .appendQueryParameter("api_key", APIkeyV3)
+                .appendQueryParameter(Resources.getSystem().getString(R.string.apiKeyTag),
+                        Resources.getSystem().getString(R.string.APIkeyV3))
                 .build();
 
         URL url = null;

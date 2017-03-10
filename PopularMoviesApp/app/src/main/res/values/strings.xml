@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">PopularMoviesApp</string>
+    <string name="jsonQueryResults">results</string>
+    <string name="jsonQueryPosterPath">poster_path</string>
+    <string name="jsonQueryTitle">title</string>
+    <string name="baseMovieDbUrl">aa</string>
+    <string name="APIkeyV3">f39d4c2d598f29ac20b5b38086ed90c1</string>
+    <string name="apiKeyTag">api_key</string>
 </resources>

@@ -63,32 +63,30 @@ public class MainActivity extends AppCompatActivity {
         {
             super.onPostExecute(movieArray);
 
-            MainActivityFragment mainActivityFragment = (MainActivityFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
-            MovieDataAdapter adapter= mainActivityFragment.getMovieDataAdapter();
-
-            adapter.clear();
-
-            try
+            if(movieArray != null)
             {
-                for(int i =0; i< movieArray.length(); i++)
-                {
-                    JSONObject jsonMovieData = movieArray.getJSONObject(i);
-                    String imagePath = "http://image.tmdb.org/t/p/w185/" + jsonMovieData.get("poster_path");
-                    String largeImagePath = "http://image.tmdb.org/t/p/w500/" + jsonMovieData.get("poster_path");
+                MainActivityFragment mainActivityFragment = (MainActivityFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
+                MovieDataAdapter adapter = mainActivityFragment.getMovieDataAdapter();
 
-                    MovieData movieData = new MovieData(imagePath, largeImagePath, jsonMovieData.getString("title"), jsonMovieData.getString("release_date"),
-                            jsonMovieData.getString("vote_average"), jsonMovieData.getString("overview"));
+                adapter.clear();
 
-                    adapter.add(movieData);
+                try {
+                    for (int i = 0; i < movieArray.length(); i++) {
+                        JSONObject jsonMovieData = movieArray.getJSONObject(i);
+                        String imagePath = "http://image.tmdb.org/t/p/w185/" + jsonMovieData.get("poster_path");
+                        String largeImagePath = "http://image.tmdb.org/t/p/w500/" + jsonMovieData.get("poster_path");
+
+                        MovieData movieData = new MovieData(imagePath, largeImagePath, jsonMovieData.getString("title"), jsonMovieData.getString("release_date"),
+                                jsonMovieData.getString("vote_average"), jsonMovieData.getString("overview"));
+
+                        adapter.add(movieData);
+                    }
+
+                    mainActivityFragment.getMovieDataAdapter().notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-
-                mainActivityFragment.getMovieDataAdapter().notifyDataSetChanged();
             }
-            catch (JSONException e)
-            {
-                e.printStackTrace();
-            }
-
         }
     }
     @Override
